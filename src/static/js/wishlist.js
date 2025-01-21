@@ -36,15 +36,17 @@ function listen (element, upOrDown) {
 
       const tr = event.currentTarget.parentElement.parentElement
       const otherTr = upOrDown === 'up' ? tr.previousSibling : tr.nextSibling
+      const ANIMATION_DURATION = '0.45s'
 
       const res = fetch(`/api/wishlist/${document.querySelector('[type="data/user_id"]').textContent}/${tr.id}/move/${upOrDown}`, {
         method: 'post',
         credentials: 'include'
       })
 
+
       await Promise.all([
-        animateCSS(tr, 'zoomOut', '0.45s'),
-        animateCSS(otherTr, 'zoomOut', '0.45s')
+        animateCSS(tr, 'zoomOut', ANIMATION_DURATION),
+        animateCSS(otherTr, 'zoomOut', ANIMATION_DURATION)
       ])
 
       tr.style.visibility = 'hidden'
@@ -80,8 +82,8 @@ function listen (element, upOrDown) {
       otherTr.style.visibility = 'visible'
 
       await Promise.all([
-        animateCSS(tr, 'zoomIn', '0.45s'),
-        animateCSS(otherTr, 'zoomIn', '0.45s')
+        animateCSS(tr, 'zoomIn', ANIMATION_DURATION),
+        animateCSS(otherTr, 'zoomIn', ANIMATION_DURATION)
       ])
 
       return false
